@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+   <head>
+    <title>Q4 | Seatwork 2</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+      <script src="converter.js"></script>
+  </head>
+  <body>
+    <div class="container">
+    <h2>Weather Program</h2>
+    <p id="dateTime"></p>
+    <div class="form-group">
+      <label for="inputFahrenheit">Enter temperature in Fahrenheit:</label>
+      <input type="text" class="form-control" id="inputFahrenheit">
+    </div>
+    <button type="button" class="btn btn-primary" onclick="convert()">Convert</button>
+    <div class="form-group">
+      <label for="outputCelsius">Temperature in Celsius:</label>
+      <input type="text" class="form-control" id="outputCelsius" readonly>
+    </div>
+    <h3>Weather Description</h3>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Parameter</th>
+          <th>Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>City</td>
+          <td id="city"></td>
+        </tr>
+          <td>Country</td>
+          <td id="country"></td>
+        <tr>
+          <td>Temperature</td>
+          <td id="temperature"></td>
+        </tr>
+        <tr>
+          <td>Description</td>
+          <td id="description"></td>
+        </tr>
+        <tr>
+          <td>Humidity</td>
+          <td id="humidity"></td>
+        </tr>
+        <tr>
+          <td>Wind Speed</td>
+          <td id="wind"></td>
+        </tr>
+      </tbody>
+    </table>
+
+<script>
+      
+      function convert() {
+  var inputFahrenheit = document.getElementById("inputFahrenheit").value;
+  var outputCelsius = (inputFahrenheit - 32) * 5/9;
+  document.getElementById("outputCelsius").value = outputCelsius.toFixed(2);
+}
+
+function getWeather() {
+  var city = document.getElementById("city").value;
+  var apiKey = "your-api-key"; // replace with your API key
+  var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial&appid=" + apiKey;
+
+  $.getJSON(apiUrl, function(data) {
+    var country = data.sys.country;
+    var temperature = data.main.temp;
+    var description = data.weather[0].description;
+    var humidity = data.main.humidity;
+    var wind = data.wind.speed;
+
+    document.getElementById("country").innerHTML = country;
+    document.getElementById("temperature").innerHTML = temperature + " &#8457;";
+    document.getElementById("description").innerHTML = description;
+    document.getElementById("humidity").innerHTML = humidity + " %";
+    document.getElementById("wind").innerHTML = wind + " mph";
+  });
+}
+
+function displayDateTime() {
+  var now = new Date();
+  var dateTime = now.toLocaleString();
+  document.getElementById("dateTime").innerHTML = dateTime;
+}
+
+// Display the date and time
+displayDateTime();
+
+// Listen for the Enter key in the city input field
+var inputCity = document.getElementById("city");
+inputCity.addEventListener("keyup", function(event) {
+  if (event.keyCode === 13) {
+    event.preventDefault();
+    document.getElementById("submit").click();
+  }
+});
+
+function
+
+    </script>
+
+  </div>
+</body>
+</html>
